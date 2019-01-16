@@ -1,21 +1,18 @@
 {
-  "name": "daskeyboard-applet--cpu-usage",
-  "displayName": "CPU Usage",
-  "version": "1.1.1",
-  "description": "Displays CPU usage on a Das Keyboard Q device",
-  "longDescription": "Keep an eye on the CPU activity on your Q keyboard!",
-  "officialProductName": "CPU Usage",
-  "appUrl": "",
-  "isSingleton": true,
-  "videoUrl": "",
+  "name": "daskeyboard-applet--firewall-guard",
+  "displayName": "Firewall Guard",
+  "version": "1.0.0",
+  "description": "Notifies when firewall and server port availability changes.",
+  "longDescription": "TBD",
+  "officialProductName": "Firewall Guard",
   "icon": "assets/icon.png",
-  "image": "assets/image-missing.png",
+  "image": "assets/image.png",
   "publisher": "Das Keyboard",
   "authorName": "Das Keyboard",
   "authorUrl": "https://twitter.com/daskeyboard",
-  "issuesUrl": "https://github.com/daskeyboard/daskeyboard-applet--cpu-monitor/issues",
-  "homePageUrl": "https://github.com/daskeyboard/daskeyboard-applet--cpu-monitor",
-  "developerRepoUrl": "https://github.com/daskeyboard/daskeyboard-applet--cpu-monitor",
+  "issuesUrl": "https://github.com/daskeyboard/daskeyboard-applet--firewall-guard/issues",
+  "homePageUrl": "https://github.com/daskeyboard/daskeyboard-applet--firewall-guard",
+  "developerRepoUrl": "https://github.com/daskeyboard/daskeyboard-applet--firewall-guard",
   "licenseUrl": "http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt",
   "changelogUrl": "CHANGELOG.md",
   "license": "MIT",
@@ -30,21 +27,56 @@
     "das-keyboard-q": "3.0.0"
   },
   "dependencies": {
-    "daskeyboard-applet": "^2.10.12",
-    "mocha": "^5.2.0",
-    "os-utils": "^0.0.14",
-    "request": "^2.88.0"
+    "daskeyboard-applet": "^2.11.1",
+    "rxjs": "^6.3.3"
   },
   "qConfig": {
     "geometry": {
-      "width": 10,
-      "height": 1,
-      "defaults": {
-        "origin": {
-          "x": 0,
-          "y": 1
-        }
+      "width": 1,
+      "height": 1
+    },
+    "questions": [
+      {
+        "key": "host",
+        "label": "Domain name or IP number",
+        "help": "Example: daskeyboard.com or localhost",
+        "required": true,
+        "order": 1,
+        "controlType": "textbox"
+      },
+      {
+        "key": "portRange",
+        "label": "Port number or a range of ports",
+        "help": "Example: 80 or 80-90",
+        "required": true,
+        "order": 2,
+        "controlType": "textbox"
+      },
+      {
+        "key": "portStatus",
+        "label": "Ensure ports are:",
+        "help": "if not, notify me.",
+        "required": true,
+        "order": 2,
+        "value": "up",
+        "controlType": "dropdown",
+        "options": [
+          {
+            "key": "up",
+            "value": "opened"
+          },
+          {
+            "key": "down",
+            "value": "closed"
+          }
+        ]
       }
-    }
+    ]
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.18",
+    "mocha": "^5.2.0",
+    "typescript": "^3.2.2"
   }
 }
