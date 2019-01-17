@@ -22,6 +22,8 @@ const regexPortNumberInput
  * Port status should be UP or DOWN
  */
 class PortState {
+  status: PortState;
+  portNumber: number;
   constructor(status, portNumber) {
     this.status = status;
     this.portNumber = portNumber;
@@ -121,11 +123,13 @@ function isPortRangeInputValid(firstPort, secondPort, errors) {
 }
 
 class FirewallGuard extends q.DesktopApp {
+  hostToMonitor: string;
+  portsToMonitor: number[];
   constructor() {
     super();
     logger.info(`FirewallGuard ready to go!`);
     // run every 20 min
-    this.pollingInterval = 1000 * 60 * 20;
+    super.pollingInterval = 1000 * 60 * 20;
   }
 
   // this function is called every `pollingInterval`
@@ -165,7 +169,7 @@ class FirewallGuard extends q.DesktopApp {
     let firstWrongPort;
     // message if error
     let messageIfError;
-    switch (this.config.portStatus) {
+    switch (super.config.portStatus) {
       case PORT_STATUS.OPENED:
         logger.info(`All ports should be up`);
         // evey ports should have status UP
@@ -188,8 +192,8 @@ class FirewallGuard extends q.DesktopApp {
 
     if (!areAllPortsOk) {
       const message = `${this.hostToMonitor}:${this.portsToMonitor[0]}-`
-        + `${this.portsToMonitor[this.portsToMonitor - 1]}`
-        + ` ${this.config.portStatus}`;
+        + `${this.portsToMonitor[this.portsToMonitor.length - 1]}`
+        + ` ${super.config.portStatus}`;
 
       logger.info(`Some ports are in the wrong state.` +
         `First wrong port ${JSON.stringify(firstWrongPort)}`)
@@ -215,17 +219,17 @@ class FirewallGuard extends q.DesktopApp {
    * Called when user change the input questions defined in the package.json
    */
   async applyConfig() {
-    if (!this.config.host || !this.config.portRange || !this.config.portStatus) {
+    if (!super.config.host || !super.config.portRange || !super.config.portStatus) {
       return;
     }
 
     // process the hostname
-    if (this.config.host) {
-      this.hostToMonitor = this.config.host.trim().toLowerCase();
+    if (super.config.host) {
+      this.hostToMonitor = super.config.host.trim().toLowerCase();
     }
 
     /* process the port*/
-    let ports = this.config.portRange.split('-');
+    let ports = super.config.portRange.split('-');
     // extract the first and second 
     let firstPort = ports[0];
     let secondPort = ports[1];
