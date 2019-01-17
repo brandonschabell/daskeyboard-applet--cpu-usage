@@ -1,0 +1,14 @@
+{
+  "include": [
+    "src/**/*"
+  ],
+  "compilerOptions": {
+      "allowJs": true,
+      "lib": [
+        "es2015"
+      ],
+      "target": "es5",
+      "outDir": "",
+      "moduleResolution": "node"
+  }
+}
