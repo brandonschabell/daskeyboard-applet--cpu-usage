@@ -58,8 +58,11 @@ class CpuUsage extends q.DesktopApp {
   }
 
   generatePoints(percent) {
+    // process the scale configuration
+    let scale = 100 / parseInt(this.config.scale) || 1
+
     // multiply the cpu percentage by the number total of keys 
-    const numberOfKeysToLight = Math.round(this.getWidth() * percent);
+    const numberOfKeysToLight = Math.min(Math.round(this.getWidth() * percent * scale), this.getWidth());
     let points = [];
 
     // create a list of points (zones) with a color). Each point 

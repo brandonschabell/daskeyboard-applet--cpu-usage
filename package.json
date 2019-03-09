@@ -1,7 +1,7 @@
 {
   "name": "daskeyboard-applet--cpu-usage",
   "displayName": "CPU Usage",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Displays CPU usage.",
   "longDescription": "Keep an eye on the CPU activity on your Q keyboard!",
   "officialProductName": "CPU Usage",
@@ -46,5 +46,15 @@
         }
       }
     }
-  }
+  },
+  "questions": [
+    {
+      "key": "scale",
+      "label": "Max CPU Percentage",
+      "required": true,
+      "order": 1,
+      "controlType": "textbox",
+      "placeholder": "100"
+    }
+  ]
 }
